@@ -1,4 +1,4 @@
 package com.example.blindpersonpickerbe.entity;
 
-public class Member {
+public class Test {
 }
