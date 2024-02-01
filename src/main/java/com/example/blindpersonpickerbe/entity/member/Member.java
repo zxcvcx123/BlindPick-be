@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,7 +15,6 @@ import java.time.LocalDateTime;
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
 
     @Column(name= "member_id", nullable = false)
@@ -30,15 +30,20 @@ public class Member {
     private String memberEmail;
 
     @Column(name= "member_birth", nullable = false)
-    private LocalDateTime memberBirth;
+    private LocalDate memberBirth;
 
     @Column(name= "member_created")
-    private LocalDateTime memberCreated = LocalDateTime.now();
+    private LocalDateTime memberCreated;
 
     @Column(name= "member_updated")
     private LocalDateTime memberUpdated;
 
     @Column(name= "member_role")
-    private LocalDateTime memberRole;
+    private String memberRole;
+
+    public Member(){
+        this.memberCreated = LocalDateTime.now();
+        this.memberRole = "user";
+    }
 
 }
