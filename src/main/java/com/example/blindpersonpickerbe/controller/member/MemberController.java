@@ -1,7 +1,7 @@
 package com.example.blindpersonpickerbe.controller.member;
 
 import com.example.blindpersonpickerbe.entity.member.Member;
-import com.example.blindpersonpickerbe.service.MemberService;
+import com.example.blindpersonpickerbe.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.example.blindpersonpickerbe.service;
+package com.example.blindpersonpickerbe.service.member;
 
 
 import com.example.blindpersonpickerbe.entity.member.Member;
