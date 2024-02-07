@@ -1,5 +1,7 @@
 package com.example.blindpersonpickerbe.service.email;
 
+import com.example.blindpersonpickerbe.dto.email.EmailCheckDTO;
+import com.example.blindpersonpickerbe.utill.redis.RedisUtil;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -7,15 +9,19 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
 import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
 public class EmailService {
 
-    private final JavaMailSender mailSender;
+    private final JavaMailSender mailSender; // 메일 관련 객체
+    private final RedisUtil redisUtil; // Redis 동작 시키는 클래스
+
     private int authNumber; // 인증번호
 
+    // 메일 관련 설정 부분
     @Value("${spring.mail.port}")
     private int port;
 
@@ -64,6 +70,25 @@ public class EmailService {
             // 이메일 서버에 연결할 수 없거나, 잘못된 이메일 주소를 사용하거나, 인증 오류가 발생하는 등 오류
             // 이러한 경우 MessagingException이 발생
             e.printStackTrace();
+        }
+        redisUtil.setDataExpire(Integer.toString(authNumber),toMail,60*5L); // Redis data Set
+
+    }
+
+    // 인증번호 검증
+    public boolean emailAuthCheck(EmailCheckDTO emailCheckDTO) {
+
+        String email = emailCheckDTO.getEmail();
+        String authNumber = emailCheckDTO.getAuthNumber();
+
+        if (redisUtil.getData(authNumber) == null) {
+            return false;
+        }
+
+        if (redisUtil.getData(authNumber).equals(email)) {
+            return true;
+        } else {
+            return false;
         }
 
     }
