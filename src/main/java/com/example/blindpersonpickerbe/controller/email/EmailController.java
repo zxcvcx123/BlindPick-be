@@ -28,6 +28,7 @@ public class EmailController {
 
     // 이메일 인증번호 인증하기
     // Request: 이메일 주소, 인증번호
+    // TODO: ResponseEntity로 구조 바꾸기
     @PostMapping("/checkemailauth")
     public String emailAuthCheck(@RequestBody @Valid EmailCheckDTO emailCheckDTO) {
 

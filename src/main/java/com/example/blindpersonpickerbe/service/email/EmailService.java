@@ -81,6 +81,9 @@ public class EmailService {
         String email = emailCheckDTO.getEmail();
         String authNumber = emailCheckDTO.getAuthNumber();
 
+        System.out.println("@@@@@@@ 들어가는 인증키 번호: " + authNumber);
+        System.out.println("@@@@@@@ Redis 인증키: " + redisUtil.getData(authNumber));
+
         if (redisUtil.getData(authNumber) == null) {
             return false;
         }

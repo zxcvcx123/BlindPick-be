@@ -32,7 +32,7 @@ public class RedisUtil {
     public void setDataExpire(String key, String value, long duration) {
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
         Duration expireDuration = Duration.ofSeconds(duration);
-        valueOperations.set(key, value, duration);
+        valueOperations.set(key, value, expireDuration);
     }
 
     // 지정된 키(key)에 해당하는 데이터를 Redis에서 삭제하는 메서드
