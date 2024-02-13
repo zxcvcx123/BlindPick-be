@@ -5,6 +5,7 @@ import com.example.blindpersonpickerbe.dto.email.EmailRequestDTO;
 import com.example.blindpersonpickerbe.service.email.EmailService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,15 +31,16 @@ public class EmailController {
     // Request: 이메일 주소, 인증번호
     // TODO: ResponseEntity로 구조 바꾸기
     @PostMapping("/checkemailauth")
-    public String emailAuthCheck(@RequestBody @Valid EmailCheckDTO emailCheckDTO) {
+    public ResponseEntity emailAuthCheck(@RequestBody @Valid EmailCheckDTO emailCheckDTO) {
 
         Boolean checked = emailService.emailAuthCheck(emailCheckDTO);
 
+        // 인증번호가 맞으면 ok 200
+        // 틀리면 Bad Request 400
         if (checked) {
-            return "ok";
+            return ResponseEntity.ok().build();
         } else {
-            throw new NullPointerException("뭔가 잘못!");
-
+            throw new NullPointerException("잘못된 인증번호 입니다!");
         }
 
 

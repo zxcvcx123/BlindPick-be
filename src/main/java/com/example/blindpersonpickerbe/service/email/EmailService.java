@@ -1,7 +1,7 @@
 package com.example.blindpersonpickerbe.service.email;
 
 import com.example.blindpersonpickerbe.dto.email.EmailCheckDTO;
-import com.example.blindpersonpickerbe.utill.redis.RedisUtil;
+import com.example.blindpersonpickerbe.utill.redis.RedisUtill;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ import java.util.Random;
 public class EmailService {
 
     private final JavaMailSender mailSender; // 메일 관련 객체
-    private final RedisUtil redisUtil; // Redis 동작 시키는 클래스
+    private final RedisUtill redisUtill; // Redis 동작 시키는 클래스
 
     private int authNumber; // 인증번호
 
@@ -71,7 +71,7 @@ public class EmailService {
             // 이러한 경우 MessagingException이 발생
             e.printStackTrace();
         }
-        redisUtil.setDataExpire(Integer.toString(authNumber),toMail,60*5L); // Redis data Set
+        redisUtill.setDataExpire(Integer.toString(authNumber),toMail,60*5L); // Redis data Set
 
     }
 
@@ -82,13 +82,13 @@ public class EmailService {
         String authNumber = emailCheckDTO.getAuthNumber();
 
         System.out.println("@@@@@@@ 들어가는 인증키 번호: " + authNumber);
-        System.out.println("@@@@@@@ Redis 인증키: " + redisUtil.getData(authNumber));
+        System.out.println("@@@@@@@ Redis 인증키: " + redisUtill.getData(authNumber));
 
-        if (redisUtil.getData(authNumber) == null) {
+        if (redisUtill.getData(authNumber) == null) {
             return false;
         }
 
-        if (redisUtil.getData(authNumber).equals(email)) {
+        if (redisUtill.getData(authNumber).equals(email)) {
             return true;
         } else {
             return false;

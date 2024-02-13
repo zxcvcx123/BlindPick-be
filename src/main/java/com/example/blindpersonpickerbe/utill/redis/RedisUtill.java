@@ -12,7 +12,7 @@ import java.time.Duration;
 // TODO: Redis 관련 부분 공부하기
 @Service
 @RequiredArgsConstructor
-public class RedisUtil {
+public class RedisUtill {
 
     private final StringRedisTemplate redisTemplate; // Redis에 접근하기 위한 Spring의 Redis 템플릿 클래스
 
