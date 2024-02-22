@@ -24,10 +24,9 @@ public class GoogleEmailConfig {
     private String mailPassword;
 
 
-
     //JAVA MAILSENDER 인터페이스를 구현한 객체를 빈으로 등록하기 위함.
     @Bean
-    public JavaMailSender mailSender(){
+    public JavaMailSender mailSender() {
 
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl(); //JavaMailSender 의 구현체를 생성하고
         mailSender.setHost(host); // 속성을 넣기 시작합니다. 이메일 전송에 사용할 SMTP 서버 호스트를 설정

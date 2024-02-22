@@ -22,5 +22,14 @@ public class MemberController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/checkid")
+    public boolean memberCheckId(@RequestBody String id){
+        System.out.println("중복체크할 ID: " + id);
+        if(id.length() > 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }
